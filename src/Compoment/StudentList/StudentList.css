@@ -1,0 +1,39 @@
+.list_container {
+    background-color: rgba(248, 248, 248, 1);
+    height: 100vh;
+    padding: 5px 30px;
+}
+.list_container .list_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+.list_container .list_title .list_title_left {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 26.82px;
+}
+
+.list_container .list_title .list_title_right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 16%;
+    justify-content: space-between;
+}
+.list_container .list_title .list_title_right svg {
+    color: rgba(254, 175, 0, 1);
+    font-size: 20px;
+}
+.list_container .list_title .list_title_right button {
+    width: 200px;
+    height: 44px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    line-height: 17.07px;
+    font-weight: 400;
+    background-color: rgba(254, 175, 0, 1);
+    border-radius: 4px;
+}

@@ -1,0 +1,76 @@
+.dashboard_compoment {
+    background-color: rgba(253, 253, 253, 1);
+    margin-top: 15px;
+    height: 100vh;
+}
+.dashboard_compoment .dashboard_content {
+    width: 92%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1px;
+}
+.dashboard_compoment .dashboard_content .dashboard_container {
+    width: 340px;
+    height: 180px;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 20px 20px;
+}
+
+.dashboard_compoment .dashboard_content .dashboard_container .dashboard_container_top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+.dashboard_container_top svg {
+    width: 50px;
+    height: 50px;
+}
+.dashboard_compoment .dashboard_content .dashboard_container .dashboard_container_top p {
+    color: rgba(108, 108, 108, 1);
+    padding-left: 8px;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17.07px;
+}
+.dashboard_compoment .dashboard_content .dashboard_container .dashboard_container_bottom {
+    margin-top: 20px;
+    text-align: right;
+}
+.dashboard_compoment .dashboard_content .dashboard_container .dashboard_container_bottom p span {
+    font-size: 18px;
+    line-height: 22px;
+}
+.dashboard_compoment .dashboard_content .dashboard_container .dashboard_container_bottom p {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 37px;
+}
+.dashboard_Student {
+    background-color: rgba(240, 249, 255, 1);
+}
+.dashboard_Student svg {
+    color: rgba(116, 193, 237, 1);
+}
+.dashboard_Course {
+    background-color: rgba(254, 246, 251, 1);
+}
+.dashboard_Course svg {
+    color: rgba(238, 149, 197, 1);
+}
+.dashboard_Payments {
+    background-color: rgba(254, 251, 236, 1);
+}
+.dashboard_Payments svg {
+    color: rgba(246, 199, 98, 1);
+}
+.dashboard_Users {
+    background-image: linear-gradient(to right, rgba(254, 175, 0, 1), rgba(248, 212, 66, 1));
+}
+.dashboard_Users svg {
+    color: rgba(255, 255, 255, 1);
+}

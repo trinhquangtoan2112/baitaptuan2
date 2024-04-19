@@ -1,0 +1,105 @@
+.sidebar {
+    padding-top: 1px;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17.07px;
+    color: rgba(0, 0, 0, 1);
+}
+.sidebar_header h2 {
+    margin: 0 auto;
+    width: 219px;
+    margin-top: 18px;
+    font-size: 20px;
+    line-height: 24.38px;
+    font-weight: 700;
+    border-left: 4px solid rgba(248, 212, 66, 1);
+}
+
+.sidebar_header .sidebar_header_info {
+    margin: 0 auto;
+    margin-top: 54px;
+    width: 130px;
+    height: 196px;
+}
+.sidebar_header .sidebar_header_info img {
+    width: 128px;
+    height: 128px;
+    border-radius: 100px;
+}
+.sidebar_header .sidebar_header_info p:nth-child(2) {
+    font-weight: 700;
+    margin-top: 20px;
+    font-size: 17px;
+    line-height: 20.72px;
+}
+.sidebar_header .sidebar_header_info p:last-child {
+    font-weight: 400;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 17.07px;
+    color: rgba(254, 175, 0, 1);
+}
+.sidebar .sidebar_body {
+    margin: 0 auto;
+    margin-top: 80px;
+    width: 193px;
+    flex-grow: 1;
+}
+.sidebar .sidebar_body .sidebar_button {
+    width: 100%;
+    height: 41px;
+    /* display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    */
+    cursor: pointer;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 20% 20% 5% 20% 20%;
+    align-items: center;
+    transition: all 0.5s;
+}
+
+.sidebar .sidebar_body .sidebar_button:hover {
+    background-color: rgba(254, 175, 0, 1);
+}
+.sidebar .sidebar_body .active {
+    background-color: rgba(254, 175, 0, 1);
+    transition: all 0.5s;
+}
+.sidebar .sidebar_body .active:hover {
+    background-color: rgba(254, 175, 0, 1);
+}
+.sidebar .sidebar_body .sidebar_button a {
+    grid-column: 4;
+}
+.sidebar .sidebar_body .sidebar_button i {
+    grid-column: 2;
+}
+.sidebar .sidebar_footer {
+    width: 193px;
+    height: 41px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 20% 20% 5% 20% 20%;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.sidebar .sidebar_footer p {
+    grid-column: 2;
+}
+.sidebar .sidebar_footer i {
+    grid-column: 5;
+}
+.sidebar .sidebar_footer:hover {
+    background-color: rgba(254, 175, 0, 1);
+}

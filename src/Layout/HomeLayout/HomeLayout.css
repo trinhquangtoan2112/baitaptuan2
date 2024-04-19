@@ -1,0 +1,13 @@
+.homelayout {
+    display: flex;
+    flex-direction: row;
+}
+.coloum_left {
+    width: 18%;
+    background-color: rgba(242, 234, 225, 1);
+}
+.coloum_right {
+    width: 82%;
+    background-color: rgba(255, 255, 255, 1);
+    height: 100%;
+}

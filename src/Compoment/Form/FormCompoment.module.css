@@ -1,0 +1,114 @@
+.form_container {
+    background-color: white;
+    width: 475px;
+    height: 600px;
+    margin: 100px auto;
+    border-radius: 20px;
+    box-shadow: 2px 5px 10px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding-top: 1px;
+}
+
+.form_container h1 {
+    padding-left: 5px;
+    height: 39px;
+    width: 342.5px;
+    font-size: 32px;
+    line-height: 39.01px;
+    font-weight: 700;
+    border-left: 6px solid #f8d442;
+    margin: 0 auto;
+    margin-top: 44px;
+}
+
+.form_container h4 {
+    margin-top: 43px;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 26.82px;
+}
+
+.form_container p {
+    margin-top: 9px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #6c6c6c;
+    line-height: 17.07px;
+}
+.form_container .form_input {
+    width: 415px;
+    margin: 0 auto;
+    text-align: left;
+}
+.form_container .form_input p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17.07px;
+    color: #6c6c6c;
+}
+.form_container .form_input .errorMessage {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17.07px;
+    color: red;
+    margin-top: 5px;
+}
+.form_container .form_input input {
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    width: 415px;
+    height: 44px;
+    margin-top: 10px;
+    padding-left: 15px;
+}
+.form_container .form_email {
+    margin-top: 50px;
+}
+.form_container .form_password {
+    margin-top: 20px;
+}
+
+.form_container button {
+    width: 415px;
+    margin: 0 auto;
+    background-color: rgba(254, 175, 0, 1);
+    border-radius: 4px;
+    height: 44px;
+    font-size: 14px;
+    line-height: 17.07px;
+    font-weight: 400;
+    color: #ffffff;
+    margin-top: 30px;
+    transition: all 0.5s;
+}
+.form_container button:hover {
+    background-color: #ffffff;
+    border: 1px solid rgba(254, 175, 0, 1);
+    color: rgba(254, 175, 0, 1);
+}
+.form_container p:last-child {
+    margin-top: 27px;
+}
+.form_container p:last-child span {
+    text-decoration: underline;
+    color: #feaf00;
+    cursor: pointer;
+}
+
+.form_container .input_password {
+    position: relative;
+    margin-top: 10px;
+}
+.form_container .input_password input {
+    margin-top: 0px;
+}
+.form_container .input_password .password2 .eye_on {
+    position: absolute;
+    top: 50%;
+    right: 2%;
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+.form_container .input_password .password2 .eye_off {
+    display: none;
+}
