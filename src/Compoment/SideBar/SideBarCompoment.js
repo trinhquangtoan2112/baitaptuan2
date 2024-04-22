@@ -8,9 +8,7 @@ export default function SideBarCompoment(props) {
         userDetail = JSON.parse(userDetail)
     }
     useEffect(() => {
-        if (userDetail == null) {
-            nav("/signin")
-        }
+
     }, [])
     const location = useLocation();
     const logOut = () => {

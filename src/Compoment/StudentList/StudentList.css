@@ -8,7 +8,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 .list_container .list_title .list_title_left {
     font-weight: 700;

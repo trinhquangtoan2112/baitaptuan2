@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from 'antd';
-import { getUserApi } from '../../Redux/Reducers/UserReducer';
+import { editUser, getUserApi } from '../../Redux/Reducers/UserReducer';
+import Moment from 'react-moment';
+import moment from 'moment';
+import dayjs from 'dayjs';
 const formItemLayout = {
     labelCol: {
         xs: {
@@ -33,70 +36,127 @@ const tailFormItemLayout = {
 };
 
 export default function EditCompoment(props) {
-    let { userID } = props;
-    let userData = "";
+    let { date, onCancel, userID } = props;
+    let data1 = "";
     const [data, setData] = useState({
-        name: "",
+        name: "1421",
         avatar: "",
         email: "",
         phone: "",
         enroll: "",
-        birthDay: "",
         password: "",
+        createdAt: "",
     });
-    const [form] = Form.useForm();
-    const showModal = async () => {
-        userData = await getUserApi(userID);
-        setData(userData)
-        console.log(userData)
-    };
+    const handleChange = (e) => {
+        setData({
+            ...data,
+            avatar: e.target.value
+        })
+    }
     useEffect(() => {
+        const showModal = async () => {
+            data1 = await getUserApi(userID);
+            data1.createdAt = dayjs(data1.createdAt);
+            setData({
+                ...data1,
+                avatar: data1.avatar
+            })
+            form.setFieldsValue({
+                name: data1.name || '',
+                avatar: data1.avatar || '',
+                email: data1.email || '',
+                phone: data1.phone || '',
+                enroll: data1.enroll || '',
+                birthDay: data1.createdAt ? dayjs(data1.createdAt) : null,
+                password: data1.password || '',
+                confirmPassword: data1.password || '',
+            });
+        };
         showModal();
     }, [])
+    const dateFormat = "DD/MM/YYYY";
+
+    useEffect(() => {
+        const showModal = async () => {
+            data1 = await getUserApi(userID);
+            data1.createdAt = dayjs(data1.createdAt);
+            setData(data1)
+            form.setFieldsValue({
+                name: data1.name || '',
+                avatar: data1.avatar || '',
+                email: data1.email || '',
+                phone: data1.phone || '',
+                enroll: data1.enroll || '',
+                createdAt: data1.createdAt ? dayjs(data1.createdAt) : null,
+                password: data1.password || '',
+                confirmPassword: data1.password || '',
+            });
+        };
+
+        showModal();
+    }, [date])
+    const onFinish = async (values) => {
+        values.avatar = await data.avatar
+        editUser(userID, values)
+    };
 
 
-    console.log(data)
+
+    const [form] = Form.useForm();
+
+
     let userInformation = localStorage.getItem("userDetail");
     userInformation = JSON.parse(userInformation)
 
     const renderConfirmPassword = () => {
         return userInformation.id === userID ? <Form.Item
-            name="confirm"
-            label="Confirm Password"
-            dependencies={['password']}
-            hasFeedback
-
+            name="password"
+            label="Password"
             rules={[
                 {
                     required: true,
-                    message: 'Please confirm your password!',
+                    message: 'Please input your password!',
                 },
-                ({ getFieldValue }) => ({
+                () => ({
                     validator(_, value) {
-                        if (!value || getFieldValue('password') === value) {
+                        const checkPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@]).{6,30}$/;
+
+
+                        if (checkPassword.test(value)) {
                             return Promise.resolve();
+                        } else {
+                            return Promise.reject(new Error('Mật khẩu không đúng định dạng'));
                         }
-                        return Promise.reject(new Error('The new password that you entered do not match!'));
+
                     },
                 }),
             ]}
-        >
-            <Input.Password defaultValue={userData.password} />
+            hasFeedback >
+            <Input.Password />
         </Form.Item> : <p></p>
     }
-    const date = new Date();
     return (
         <Form
             {...formItemLayout}
             form={form}
             name="register"
-
+            onFinish={onFinish}
 
             style={{
                 maxWidth: 600,
             }}
             scrollToFirstError
         >
+            <img src={data.avatar} alt='anh nen'></img>
+            <Form.Item
+                name="avatar"
+                label="Avatar"
+
+            >
+
+                <Input onChange={(e) =>
+                    handleChange(e)} />
+            </Form.Item>
             <Form.Item
                 name="name"
                 label="Name"
@@ -117,7 +177,7 @@ export default function EditCompoment(props) {
                     }
                 ]}
             >
-                <Input defaultValue={userData.name} />
+                <Input />
             </Form.Item>
             <Form.Item
                 name="email"
@@ -141,7 +201,7 @@ export default function EditCompoment(props) {
                     }
                 ]}
             >
-                <Input defaultValue={data.email} />
+                <Input />
             </Form.Item>
             <Form.Item
                 name="phone"
@@ -149,7 +209,7 @@ export default function EditCompoment(props) {
                 rules={[
                 ]}
             >
-                <InputNumber minLength={6} maxLength={30} defaultValue={data.phone} />
+                <InputNumber minLength={6} maxLength={30} />
             </Form.Item>
             <Form.Item
                 name="enroll"
@@ -158,17 +218,15 @@ export default function EditCompoment(props) {
 
                 ]}
             >
-                <InputNumber minLength={8} maxLength={100} defaultValue={data.enroll} />
+                <InputNumber minLength={8} maxLength={100} />
             </Form.Item>
             <Form.Item
-                label="DatePicker"
-                name="birthDay"
+                label="Date of administration"
+                name="createdAt"
                 rules={[
                     () => ({
                         validator(_, value) {
-                            console.log(value.$d)
-                            console.log(date)
-                            if (value.$d < date) {
+                            if (value.$d <= date) {
                                 return Promise.resolve();
                             } else {
                                 return Promise.reject(new Error('Khong phai la ngay cua tuong lai'));
@@ -179,41 +237,21 @@ export default function EditCompoment(props) {
 
                 ]}
             >
-                <DatePicker allowClear={false} />
-            </Form.Item>
-            <Form.Item
-                name="password"
-                label="Password"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
-                    () => ({
-                        validator(_, value) {
-                            const checkPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@]).{6,30}$/;
-
-
-                            if (checkPassword.test(value)) {
-                                return Promise.resolve();
-                            } else {
-                                return Promise.reject(new Error('Mật khẩu không đúng định dạng'));
-                            }
-
-                        },
-                    }),
-
-
-
-
-
-                ]}
-                hasFeedback
-            >
-                <Input.Password defaultValue={data.password} />
+                <DatePicker allowClear={false} format={dateFormat} />
             </Form.Item>
 
             {renderConfirmPassword()}
+            <Form.Item {...tailFormItemLayout}>
+                <Button type="primary" htmlType="submit">
+                    Register
+                </Button>
+                <Button type="" onClick={() => {
+                    onCancel()
+                }}>
+                    Cancel
+                </Button>
+            </Form.Item>
+
 
         </Form >
     )

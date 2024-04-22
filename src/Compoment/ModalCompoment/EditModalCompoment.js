@@ -1,4 +1,4 @@
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, LeftCircleFilled } from '@ant-design/icons';
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { getUserApi, signInUser } from '../../Redux/Reducers/UserReducer';
@@ -6,25 +6,17 @@ import EditCompoment from '../AddEditCompoment/EditCompoment';
 
 
 export default function EditModalCompoment(props) {
-    const { userID } = props;
+    let { userID } = props;
     const [open, setOpen] = useState(false);
+    const [date, setDate] = useState();
 
+    useEffect(() => {
+    }, [date])
 
-
-    let userData = "";
-
-    const [form] = Form.useForm();
-    const onFinish = (values) => {
-        values.birthDay = values.birthDay.$d
-        signInUser(values)
-
-        form.resetFields();
-    };
-    const showModal = async (userID) => {
-        userData = await getUserApi(userID);
-        console.log(userData);
-        console.log(userID);
+    const showModal = async () => {
         setOpen(!open);
+        let date = new Date();
+        setDate(date)
     };
 
     const handleCancel = async () => {
@@ -36,15 +28,20 @@ export default function EditModalCompoment(props) {
     return (
         <>
             <EditOutlined onClick={() => {
-                showModal(userID)
+                showModal()
             }} />
             <Modal
                 title="Edit student"
                 open={open}
+                okButtonProps={{
+                    hidden: true,
+                }}
+                cancelButtonProps={{
+                    hidden: true,
+                }}
                 onCancel={handleCancel}
-                onOk={handleOk}
             >
-                <EditCompoment userID={userID}></EditCompoment>
+                <EditCompoment userID={userID} date={date} onCancel={handleCancel}></EditCompoment>
             </Modal>
         </>
     )

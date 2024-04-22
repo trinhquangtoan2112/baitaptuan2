@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
 import { message, Popconfirm, Space, Table } from 'antd';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { LiaSortSolid } from 'react-icons/lia';
-import "./StudentList.css"
-import { useOutletContext } from 'react-router-dom';
-import ModalCompoment from '../ModalCompoment/ModalCompoment';
-import { deleteUser } from '../../Redux/Reducers/UserReducer';
+import React, { useEffect, useState } from 'react'
+import { useLocation, useOutletContext } from 'react-router-dom';
 import EditModalCompoment from '../ModalCompoment/EditModalCompoment';
-import moment from 'moment';
+import { DeleteOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
+import { deleteUser } from '../../Redux/Reducers/UserReducer';
+
 const confirm = (id) => {
     deleteUser(id)
 };
@@ -15,25 +13,10 @@ const cancel = (e) => {
     message.error('Bạn chọn không xóa');
 };
 
-
-
-
-export default function StudentListCompoment() {
+export default function SearchCompoment() {
     const context = useOutletContext();
     let data = context[1];
     const [open, setOpen] = useState(false);
-    console.log(data);
-    if (data.length > 0) {
-        data = data.map(student => ({
-            ...student,
-            createdAt: moment(student.createdAt)
-        })); console.log(data);
-    }
-    const date = new Date();
-    date.toLocaleString();
-
-
-
     const showModal = () => {
         setOpen(true);
     };
@@ -41,6 +24,54 @@ export default function StudentListCompoment() {
 
         setOpen(false);
     };
+    const [data1, setData1] = useState([]);
+    const location = useLocation();
+    console.log(location);
+    const { state } = useLocation();
+    const [status, setStatus] = useState("");
+    const checkEmail = /^(?=.{6,30}$)([^\s@]+@[^\s@]+\.[^\s@]+)$/;
+    const checkPhone = /^[0-9\-\+]{0,15}$/;
+
+    useEffect(() => {
+        if (state != null) {
+            searching()
+            console.log("ass")
+        }
+        else { }
+    }, [state])
+
+    const searching = async () => {
+        if (!state) {
+
+            return;
+        }
+
+        let lowercaseQuery = state.toLowerCase().trim();
+        console.log("lowercaseQuery", lowercaseQuery)
+        if (checkEmail.test(state)) {
+
+            const dataFilter = await data.filter(item => item.email.toLowerCase().includes(lowercaseQuery));
+            setData1(dataFilter)
+            setStatus("email");
+        } else if (checkPhone.test(state)) {
+            lowercaseQuery = parseInt(lowercaseQuery);
+            const dataFilter = await data.filter(item => item.phone === lowercaseQuery);
+            setData1(dataFilter)
+
+            setStatus("phone")
+        } else {
+            const dataFilter = await data.filter(item => item.name.toLowerCase().includes(lowercaseQuery));
+            setData1(dataFilter)
+            console.log(data1)
+            setStatus("name")
+
+        }
+
+    }
+    console.log(data1, "2ws")
+    console.log(data)
+    const date = new Date();
+    date.toLocaleString();
     const columns = [
         {
 
@@ -74,7 +105,7 @@ export default function StudentListCompoment() {
             title: 'Date of administration',
             dataIndex: 'createdAt',
             key: 'createdAt',
-            render: (createdAt) => moment(createdAt._d).format('DD / MM / YYYY'),
+            render: (createdAt) => dayjs(createdAt._d).format('DD / MM / YYYY'),
         },
         {
             title: "",
@@ -105,15 +136,11 @@ export default function StudentListCompoment() {
     return (
         <div className='list_container'>
             <div className='list_title'>
-                <div className='list_title_left'>Students List</div>
-                <div className='list_title_right'>
-                    <LiaSortSolid />
-                    <ModalCompoment open={open} showModal={showModal} handleCancel={handleCancel}></ModalCompoment>
-                </div>
+                <div className='list_title_left'>Search Student</div>
             </div>
             <hr />
             <div className='list_table'>
-                <Table columns={columns} dataSource={data} />
+                <Table columns={columns} dataSource={data1} />
             </div>
             <div></div>
         </div>

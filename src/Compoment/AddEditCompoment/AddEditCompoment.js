@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Button, DatePicker, Form, Input, InputNumber,
 } from 'antd';
@@ -35,14 +35,20 @@ const tailFormItemLayout = {
 };
 export default function AddEditCompoment(props) {
     const { cancel } = props;
+    const [imgState, setImgState] = useState();
     const date = new Date();
     const [form] = Form.useForm();
     const onFinish = (values) => {
         values.birthDay = values.birthDay.$d
+        values.avatar = imgState;
+        setImgState("")
         signInUser(values)
         cancel()
         form.resetFields();
     };
+    const handleChange = (e) => {
+        setImgState(e.target.value)
+    }
     return (
         <Form
             {...formItemLayout}
@@ -58,6 +64,17 @@ export default function AddEditCompoment(props) {
             }}
             scrollToFirstError
         >
+            <Form.Item
+                name="avatar"
+                label="Avatar"
+                rules={[
+                ]}
+            >
+                <img src={imgState ? imgState : ""} alt='anhnen'></img>
+                <Input onChange={(e) => {
+                    handleChange(e)
+                }} />
+            </Form.Item>
             <Form.Item
                 name="name"
                 label="Name"

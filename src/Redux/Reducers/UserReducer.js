@@ -110,3 +110,26 @@ export const getUserApi = async (id) => {
         console.log(error)
     }
 }
+
+export const editUser = async (id, data) => {
+
+    try {
+        const result = await axios({
+            url: `${DOMAIN}/${id}`,
+            method: 'PUT',
+            data: data
+        });
+        if (result.status === 200) {
+            await message.success("Sửa thành công");
+            window.location.reload();
+        } else {
+            message.error("Không thành công");
+        }
+
+        console.log(result)
+
+    } catch (error) {
+        message.error("Không thành công");
+        console.log(error)
+    }
+}
