@@ -1,14 +1,14 @@
 .list_container {
     background-color: rgba(248, 248, 248, 1);
-    height: 100vh;
-    padding: 5px 30px;
+    height: 100%;
+    padding: 1px 30px;
 }
 .list_container .list_title {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin: 20px 0;
     align-items: center;
-    margin: 10px 0;
 }
 .list_container .list_title .list_title_left {
     font-weight: 700;
@@ -36,4 +36,8 @@
     font-weight: 400;
     background-color: rgba(254, 175, 0, 1);
     border-radius: 4px;
+}
+.list_container123 {
+    height: 820px;
+    background-color: rgba(248, 248, 248, 1);
 }

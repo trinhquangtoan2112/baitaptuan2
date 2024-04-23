@@ -39,10 +39,31 @@ img {
 .ant-table-cell {
     text-align: center !important;
 }
+.ant-table-cell img {
+    border-radius: 8px;
+    width: 65px;
+    height: 55px;
+}
 .ant-table table {
     border-spacing: 0 5px;
     background-color: #f8f8f8;
 }
 .ant-table-row {
     background-color: rgba(255, 255, 255, 1);
+}
+.ant-space-item svg {
+    width: 19px;
+    height: 19px;
+}
+.ant-table-cell a {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 17.07px;
+}
+.ant-form-horizontal img {
+    margin: 0 auto;
+    margin-bottom: 10px;
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
 }

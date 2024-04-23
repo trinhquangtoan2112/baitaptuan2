@@ -55,7 +55,7 @@ export default function EditCompoment(props) {
     }
     useEffect(() => {
         const showModal = async () => {
-            data1 = await getUserApi(userID);
+            data1 = getUserApi(userID);
             data1.createdAt = dayjs(data1.createdAt);
             setData({
                 ...data1,
@@ -75,7 +75,6 @@ export default function EditCompoment(props) {
         showModal();
     }, [])
     const dateFormat = "DD/MM/YYYY";
-
     useEffect(() => {
         const showModal = async () => {
             data1 = await getUserApi(userID);
@@ -99,12 +98,7 @@ export default function EditCompoment(props) {
         values.avatar = await data.avatar
         editUser(userID, values)
     };
-
-
-
     const [form] = Form.useForm();
-
-
     let userInformation = localStorage.getItem("userDetail");
     userInformation = JSON.parse(userInformation)
 

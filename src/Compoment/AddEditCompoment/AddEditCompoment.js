@@ -33,6 +33,7 @@ const tailFormItemLayout = {
         },
     },
 };
+const dateFormat = "DD/MM/YYYY";
 export default function AddEditCompoment(props) {
     const { cancel } = props;
     const [imgState, setImgState] = useState();
@@ -64,13 +65,14 @@ export default function AddEditCompoment(props) {
             }}
             scrollToFirstError
         >
+            <img src={imgState ? imgState : ""} alt='anhnen'></img>
             <Form.Item
                 name="avatar"
                 label="Avatar"
                 rules={[
                 ]}
             >
-                <img src={imgState ? imgState : ""} alt='anhnen'></img>
+
                 <Input onChange={(e) => {
                     handleChange(e)
                 }} />
@@ -157,7 +159,7 @@ export default function AddEditCompoment(props) {
 
                 ]}
             >
-                <DatePicker allowClear={false} />
+                <DatePicker allowClear={false} format={dateFormat} />
             </Form.Item>
             <Form.Item
                 name="password"

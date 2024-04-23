@@ -58,23 +58,26 @@ export default function StudentListCompoment() {
             title: 'Email',
             dataIndex: 'email',
             key: 'email',
+            render: (text) => <a>{text}</a>,
         },
         {
             title: 'Phone',
             dataIndex: 'phone',
             key: 'phone',
+            render: (text) => <a>{text}</a>,
         },
 
         {
             title: 'EnrollNumber',
             dataIndex: 'enroll',
             key: 'enroll',
+            render: (text) => <a>{text}</a>,
         },
         {
             title: 'Date of administration',
             dataIndex: 'createdAt',
             key: 'createdAt',
-            render: (createdAt) => moment(createdAt._d).format('DD / MM / YYYY'),
+            render: (createdAt) => moment(createdAt._d).format('DD-MMM , YYYY'),
         },
         {
             title: "",
@@ -104,12 +107,15 @@ export default function StudentListCompoment() {
     ];
     return (
         <div className='list_container'>
-            <div className='list_title'>
+
+            <div className='list_title' >
+
                 <div className='list_title_left'>Students List</div>
                 <div className='list_title_right'>
                     <LiaSortSolid />
                     <ModalCompoment open={open} showModal={showModal} handleCancel={handleCancel}></ModalCompoment>
                 </div>
+
             </div>
             <hr />
             <div className='list_table'>

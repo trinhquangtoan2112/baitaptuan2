@@ -30,12 +30,11 @@ export default function SearchCompoment() {
     const { state } = useLocation();
     const [status, setStatus] = useState("");
     const checkEmail = /^(?=.{6,30}$)([^\s@]+@[^\s@]+\.[^\s@]+)$/;
-    const checkPhone = /^[0-9\-\+]{0,15}$/;
+    const checkPhone = /^[0-9\-\+]{0,40}$/;
 
     useEffect(() => {
         if (state != null) {
             searching()
-            console.log("ass")
         }
         else { }
     }, [state])
@@ -57,12 +56,12 @@ export default function SearchCompoment() {
             lowercaseQuery = parseInt(lowercaseQuery);
             const dataFilter = await data.filter(item => item.phone === lowercaseQuery);
             setData1(dataFilter)
-
+            console.log(dataFilter)
             setStatus("phone")
         } else {
             const dataFilter = await data.filter(item => item.name.toLowerCase().includes(lowercaseQuery));
             setData1(dataFilter)
-            console.log(data1)
+
             setStatus("name")
 
         }
@@ -89,23 +88,26 @@ export default function SearchCompoment() {
             title: 'Email',
             dataIndex: 'email',
             key: 'email',
+            render: (text) => <a>{text}</a>,
         },
         {
             title: 'Phone',
             dataIndex: 'phone',
             key: 'phone',
+            render: (text) => <a>{text}</a>,
         },
 
         {
             title: 'EnrollNumber',
             dataIndex: 'enroll',
             key: 'enroll',
+            render: (text) => <a>{text}</a>,
         },
         {
             title: 'Date of administration',
             dataIndex: 'createdAt',
             key: 'createdAt',
-            render: (createdAt) => dayjs(createdAt._d).format('DD / MM / YYYY'),
+            render: (createdAt) => dayjs(createdAt._d).format('DD-MMM , YYYY'),
         },
         {
             title: "",
@@ -134,7 +136,7 @@ export default function SearchCompoment() {
         },
     ];
     return (
-        <div className='list_container'>
+        <div className='list_container123'>
             <div className='list_title'>
                 <div className='list_title_left'>Search Student</div>
             </div>

@@ -3,8 +3,6 @@ import { Button, DatePicker, Form, Input, InputNumber, Modal } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { getUserApi, signInUser } from '../../Redux/Reducers/UserReducer';
 import EditCompoment from '../AddEditCompoment/EditCompoment';
-
-
 export default function EditModalCompoment(props) {
     let { userID } = props;
     const [open, setOpen] = useState(false);
