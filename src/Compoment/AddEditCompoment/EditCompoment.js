@@ -53,15 +53,41 @@ export default function EditCompoment(props) {
             avatar: e.target.value
         })
     }
+    const onCancel1 = async (e) => {
+        setData({
+            ...data1,
+            avatar: ""
+        })
+        form.setFieldsValue({
+            name: '',
+            avatar: '',
+            email: '',
+            phone: '',
+            enroll: '',
+            birthDay: null,
+            password: '',
+            confirmPassword: '',
+        });
+        onCancel()
+    }
     useEffect(() => {
         const showModal = async () => {
+            form.setFieldsValue({
+                name: '',
+                avatar: '',
+                email: '',
+                phone: '',
+                enroll: '',
+                birthDay: null,
+                password: '',
+                confirmPassword: '',
+            });
             data1 = getUserApi(userID);
             data1.createdAt = dayjs(data1.createdAt);
             setData({
-                ...data1,
-                avatar: data1.avatar
+                data1,
             })
-            form.setFieldsValue({
+            await form.setFieldsValue({
                 name: data1.name || '',
                 avatar: data1.avatar || '',
                 email: data1.email || '',
@@ -71,16 +97,27 @@ export default function EditCompoment(props) {
                 password: data1.password || '',
                 confirmPassword: data1.password || '',
             });
+
         };
         showModal();
     }, [])
     const dateFormat = "DD/MM/YYYY";
     useEffect(() => {
         const showModal = async () => {
+            form.setFieldsValue({
+                name: '',
+                avatar: '',
+                email: '',
+                phone: '',
+                enroll: '',
+                birthDay: null,
+                password: '',
+                confirmPassword: '',
+            });
             data1 = await getUserApi(userID);
             data1.createdAt = dayjs(data1.createdAt);
             setData(data1)
-            form.setFieldsValue({
+            await form.setFieldsValue({
                 name: data1.name || '',
                 avatar: data1.avatar || '',
                 email: data1.email || '',
@@ -90,6 +127,7 @@ export default function EditCompoment(props) {
                 password: data1.password || '',
                 confirmPassword: data1.password || '',
             });
+
         };
 
         showModal();
@@ -170,6 +208,7 @@ export default function EditCompoment(props) {
                         message: "Too long"
                     }
                 ]}
+                validateTrigger='onSubmit'
             >
                 <Input />
             </Form.Item>
@@ -194,6 +233,7 @@ export default function EditCompoment(props) {
                         message: "Too long"
                     }
                 ]}
+                validateTrigger='onSubmit'
             >
                 <Input />
             </Form.Item>
@@ -202,6 +242,7 @@ export default function EditCompoment(props) {
                 label="Phone Number"
                 rules={[
                 ]}
+                validateTrigger='onSubmit'
             >
                 <InputNumber minLength={6} maxLength={30} />
             </Form.Item>
@@ -211,6 +252,7 @@ export default function EditCompoment(props) {
                 rules={[
 
                 ]}
+                validateTrigger='onSubmit'
             >
                 <InputNumber minLength={8} maxLength={100} />
             </Form.Item>
@@ -230,6 +272,7 @@ export default function EditCompoment(props) {
                     }),
 
                 ]}
+                validateTrigger='onSubmit'
             >
                 <DatePicker allowClear={false} format={dateFormat} />
             </Form.Item>
@@ -237,10 +280,10 @@ export default function EditCompoment(props) {
             {renderConfirmPassword()}
             <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">
-                    Register
+                    Edit user
                 </Button>
                 <Button type="" onClick={() => {
-                    onCancel()
+                    onCancel1()
                 }}>
                     Cancel
                 </Button>

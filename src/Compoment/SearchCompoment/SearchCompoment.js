@@ -46,7 +46,7 @@ export default function SearchCompoment() {
         }
 
         let lowercaseQuery = state.toLowerCase().trim();
-        console.log("lowercaseQuery", lowercaseQuery)
+
         if (checkEmail.test(state)) {
 
             const dataFilter = await data.filter(item => item.email.toLowerCase().includes(lowercaseQuery));
@@ -54,7 +54,7 @@ export default function SearchCompoment() {
             setStatus("email");
         } else if (checkPhone.test(state)) {
             lowercaseQuery = parseInt(lowercaseQuery);
-            const dataFilter = await data.filter(item => item.phone === lowercaseQuery);
+            const dataFilter = await data.filter(item => parseInt(item.phone) === lowercaseQuery);
             setData1(dataFilter)
             console.log(dataFilter)
             setStatus("phone")
@@ -67,8 +67,6 @@ export default function SearchCompoment() {
         }
 
     }
-    console.log(data1, "2ws")
-    console.log(data)
     const date = new Date();
     date.toLocaleString();
     const columns = [

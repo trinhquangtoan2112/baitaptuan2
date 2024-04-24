@@ -96,6 +96,7 @@ export default function AddEditCompoment(props) {
                         message: "Too long"
                     }
                 ]}
+                validateTrigger='onSubmit'
             >
                 <Input />
             </Form.Item>
@@ -120,6 +121,7 @@ export default function AddEditCompoment(props) {
                         message: "Too long"
                     }
                 ]}
+                validateTrigger='onSubmit'
             >
                 <Input />
             </Form.Item>
@@ -137,6 +139,7 @@ export default function AddEditCompoment(props) {
                 rules={[
 
                 ]}
+                validateTrigger='onSubmit'
             >
                 <InputNumber minLength={8} maxLength={100} />
             </Form.Item>
@@ -158,6 +161,7 @@ export default function AddEditCompoment(props) {
                     }),
 
                 ]}
+                validateTrigger='onSubmit'
             >
                 <DatePicker allowClear={false} format={dateFormat} />
             </Form.Item>
@@ -188,6 +192,7 @@ export default function AddEditCompoment(props) {
 
 
                 ]}
+                validateTrigger='onSubmit'
                 hasFeedback
             >
                 <Input.Password />
@@ -213,12 +218,13 @@ export default function AddEditCompoment(props) {
                         },
                     }),
                 ]}
+                validateTrigger='onSubmit'
             >
                 <Input.Password />
             </Form.Item>
             <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">
-                    Register
+                    Add user
                 </Button>
                 <Button type="" onClick={() => {
                     cancel()

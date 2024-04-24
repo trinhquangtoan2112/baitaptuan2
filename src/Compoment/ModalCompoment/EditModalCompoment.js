@@ -8,13 +8,16 @@ export default function EditModalCompoment(props) {
     const [open, setOpen] = useState(false);
     const [date, setDate] = useState();
 
-    useEffect(() => {
-    }, [date])
+
 
     const showModal = async () => {
-        setOpen(!open);
+
         let date = new Date();
         setDate(date)
+        setTimeout(() => {
+            setOpen(!open);
+        }, 0)
+
     };
 
     const handleCancel = async () => {
@@ -37,7 +40,6 @@ export default function EditModalCompoment(props) {
                 cancelButtonProps={{
                     hidden: true,
                 }}
-                onCancel={handleCancel}
             >
                 <EditCompoment userID={userID} date={date} onCancel={handleCancel}></EditCompoment>
             </Modal>

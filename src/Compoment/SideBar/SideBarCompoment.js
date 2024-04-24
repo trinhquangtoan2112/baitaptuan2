@@ -1,27 +1,39 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./SidebarCompoment.css"
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { DOMAIN } from '../../utils/config';
 export default function SideBarCompoment(props) {
     let { userDetail } = props;
     const nav = useNavigate();
     if (userDetail != null) {
         userDetail = JSON.parse(userDetail)
     }
+    const [userInformation, setUserInformation] = useState();
     useEffect(() => {
+        const getDataApi = async () => {
 
+            const result = await axios({
+                url: `${DOMAIN}/${userDetail.id}`,
+                method: 'GET',
+
+            });
+            setUserInformation(result.data);
+        }
+        getDataApi()
     }, [])
     const location = useLocation();
     const logOut = () => {
         localStorage.removeItem("userDetail");
-
     }
+
     return (
         <div className='sidebar'>
             <div className='sidebar_header'>
                 <h2>CRUD OPERATIONS</h2>
                 <div className='sidebar_header_info'>
-                    <img src={`${userDetail?.avatar}`} alt='avatar'></img>
-                    <p>{userDetail?.name}</p>
+                    <img src={`${userInformation?.avatar}`} alt='avatar'></img>
+                    <p>{userInformation?.name}</p>
                     <p>Admin</p>
                 </div>
             </div>

@@ -22,12 +22,12 @@ export default function StudentListCompoment() {
     const context = useOutletContext();
     let data = context[1];
     const [open, setOpen] = useState(false);
-    console.log(data);
+
     if (data.length > 0) {
         data = data.map(student => ({
             ...student,
             createdAt: moment(student.createdAt)
-        })); console.log(data);
+        }));
     }
     const date = new Date();
     date.toLocaleString();

@@ -31,6 +31,7 @@
     width: 128px;
     height: 128px;
     border-radius: 100px;
+    object-fit: cover;
 }
 .sidebar_header .sidebar_header_info p:nth-child(2) {
     font-weight: 700;
