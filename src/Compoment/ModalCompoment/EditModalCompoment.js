@@ -40,6 +40,7 @@ export default function EditModalCompoment(props) {
                 cancelButtonProps={{
                     hidden: true,
                 }}
+                onCancel={handleCancel}
             >
                 <EditCompoment userID={userID} date={date} onCancel={handleCancel}></EditCompoment>
             </Modal>

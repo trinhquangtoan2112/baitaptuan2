@@ -10,6 +10,7 @@ export default function ModalCompoment(props) {
     };
     const handleCancel = () => {
         setOpen(false);
+
     };
     return (
         <>

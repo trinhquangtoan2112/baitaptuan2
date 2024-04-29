@@ -17,12 +17,13 @@ const UserReducer = createSlice({
     initialState,
     reducers: {
         getAllUserApiAction: (state, action) => {
+            console.log(action)
             state.allUser = action.payload;
         },
         getUserDetailApiAction: (state, action) => {
             state.userDetail = action.payload;
             if (state.userDetail) {
-                window.alert("Đăng nhập thành công")
+                message.success("Đăng nhập thành công")
             }
         }
     }
@@ -50,7 +51,7 @@ export const getUserDetail = async (dispatch, data) => {
 }
 
 
-export const signInUser = async (data) => {
+export const signInUser = async (data, dispatch) => {
     console.log(data, "data")
     try {
         const result = await axios({
@@ -59,8 +60,9 @@ export const signInUser = async (data) => {
             data: data
         });
         if (result.status === 201 || result.status === 202) {
+            getAllUserApi(dispatch)
             await message.success("Them thanh cong");
-            window.location.reload();
+
         } else {
             message.error("Không thành công");
         }
@@ -71,7 +73,7 @@ export const signInUser = async (data) => {
 }
 
 
-export const deleteUser = async (id) => {
+export const deleteUser = async (id, dispatch) => {
 
     try {
         const result = await axios({
@@ -80,8 +82,10 @@ export const deleteUser = async (id) => {
 
         });
         if (result.status === 200) {
+            getAllUserApi(dispatch)
+
             await message.success("Xóa thành công");
-            window.location.reload();
+
         } else {
             message.error("Không thành công");
         }
@@ -111,7 +115,7 @@ export const getUserApi = async (id) => {
     }
 }
 
-export const editUser = async (id, data) => {
+export const editUser = async (id, data, dispatch) => {
 
     try {
         const result = await axios({
@@ -120,8 +124,9 @@ export const editUser = async (id, data) => {
             data: data
         });
         if (result.status === 200) {
+            getAllUserApi(dispatch)
             await message.success("Sửa thành công");
-            window.location.reload();
+
         } else {
             message.error("Không thành công");
         }

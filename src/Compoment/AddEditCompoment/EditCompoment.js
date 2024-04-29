@@ -4,6 +4,7 @@ import { editUser, getUserApi } from '../../Redux/Reducers/UserReducer';
 import Moment from 'react-moment';
 import moment from 'moment';
 import dayjs from 'dayjs';
+import { useDispatch } from 'react-redux';
 const formItemLayout = {
     labelCol: {
         xs: {
@@ -38,6 +39,7 @@ const tailFormItemLayout = {
 export default function EditCompoment(props) {
     let { date, onCancel, userID } = props;
     let data1 = "";
+    const dispatch = useDispatch();
     const [data, setData] = useState({
         name: "1421",
         avatar: "",
@@ -54,10 +56,16 @@ export default function EditCompoment(props) {
         })
     }
     const onCancel1 = async (e) => {
+        form.resetFields();
         setData({
-            ...data1,
+            ...data,
             avatar: ""
         })
+
+        showModal()
+        onCancel()
+    }
+    const showModal = async () => {
         form.setFieldsValue({
             name: '',
             avatar: '',
@@ -68,73 +76,31 @@ export default function EditCompoment(props) {
             password: '',
             confirmPassword: '',
         });
-        onCancel()
-    }
-    useEffect(() => {
-        const showModal = async () => {
-            form.setFieldsValue({
-                name: '',
-                avatar: '',
-                email: '',
-                phone: '',
-                enroll: '',
-                birthDay: null,
-                password: '',
-                confirmPassword: '',
-            });
-            data1 = getUserApi(userID);
-            data1.createdAt = dayjs(data1.createdAt);
-            setData({
-                data1,
-            })
-            await form.setFieldsValue({
-                name: data1.name || '',
-                avatar: data1.avatar || '',
-                email: data1.email || '',
-                phone: data1.phone || '',
-                enroll: data1.enroll || '',
-                birthDay: data1.createdAt ? dayjs(data1.createdAt) : null,
-                password: data1.password || '',
-                confirmPassword: data1.password || '',
-            });
+        data1 = await getUserApi(userID);
+        data1.createdAt = dayjs(data1.createdAt);
+        setData(data1)
+        await form.setFieldsValue({
+            name: data1.name || '',
+            avatar: data1.avatar || '',
+            email: data1.email || '',
+            phone: data1.phone || '',
+            enroll: data1.enroll || '',
+            createdAt: data1.createdAt ? dayjs(data1.createdAt) : null,
+            password: data1.password || '',
+            confirmPassword: data1.password || '',
+        });
 
-        };
-        showModal();
-    }, [])
+    };
     const dateFormat = "DD/MM/YYYY";
     useEffect(() => {
-        const showModal = async () => {
-            form.setFieldsValue({
-                name: '',
-                avatar: '',
-                email: '',
-                phone: '',
-                enroll: '',
-                birthDay: null,
-                password: '',
-                confirmPassword: '',
-            });
-            data1 = await getUserApi(userID);
-            data1.createdAt = dayjs(data1.createdAt);
-            setData(data1)
-            await form.setFieldsValue({
-                name: data1.name || '',
-                avatar: data1.avatar || '',
-                email: data1.email || '',
-                phone: data1.phone || '',
-                enroll: data1.enroll || '',
-                createdAt: data1.createdAt ? dayjs(data1.createdAt) : null,
-                password: data1.password || '',
-                confirmPassword: data1.password || '',
-            });
-
-        };
 
         showModal();
-    }, [date])
+    }, [userID])
     const onFinish = async (values) => {
         values.avatar = await data.avatar
-        editUser(userID, values)
+        editUser(userID, values, dispatch)
+        onCancel()
+        showModal()
     };
     const [form] = Form.useForm();
     let userInformation = localStorage.getItem("userDetail");
@@ -145,19 +111,20 @@ export default function EditCompoment(props) {
             name="password"
             label="Password"
             rules={[
-                {
-                    required: true,
-                    message: 'Please input your password!',
-                },
                 () => ({
                     validator(_, value) {
-                        const checkPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@]).{6,30}$/;
-
-
-                        if (checkPassword.test(value)) {
-                            return Promise.resolve();
-                        } else {
-                            return Promise.reject(new Error('Mật khẩu không đúng định dạng'));
+                        console.log('_', _)
+                        console.log('value', value)
+                        if (value === undefined || value === "" || value === null) {
+                            return Promise.reject(new Error('Please input your password!'));
+                        }
+                        else {
+                            const checkPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@]).{6,30}$/;
+                            if (checkPassword.test(value)) {
+                                return Promise.resolve();
+                            } else if (!checkPassword.test(value)) {
+                                return Promise.reject(new Error('Mật khẩu không đúng định dạng'));
+                            }
                         }
 
                     },
@@ -262,15 +229,19 @@ export default function EditCompoment(props) {
                 rules={[
                     () => ({
                         validator(_, value) {
-                            if (value.$d <= date) {
-                                return Promise.resolve();
+                            console.log(value)
+                            console.log(date)
+                            if (value === undefined || value === "" || value === null) {
+                                return Promise.reject(new Error('Please input your birthDay!'));
                             } else {
-                                return Promise.reject(new Error('Khong phai la ngay cua tuong lai'));
+                                if (value.$d < date) {
+                                    return Promise.resolve();
+                                } else {
+                                    return Promise.reject(new Error('Khong phai la ngay cua tuong lai'));
+                                }
                             }
-
                         },
                     }),
-
                 ]}
                 validateTrigger='onSubmit'
             >

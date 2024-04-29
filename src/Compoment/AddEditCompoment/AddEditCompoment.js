@@ -3,6 +3,7 @@ import {
     Button, DatePicker, Form, Input, InputNumber,
 } from 'antd';
 import { signInUser } from '../../Redux/Reducers/UserReducer';
+import { useDispatch } from 'react-redux';
 const formItemLayout = {
     labelCol: {
         xs: {
@@ -36,19 +37,25 @@ const tailFormItemLayout = {
 const dateFormat = "DD/MM/YYYY";
 export default function AddEditCompoment(props) {
     const { cancel } = props;
+    const dispatch = useDispatch();
     const [imgState, setImgState] = useState();
     const date = new Date();
     const [form] = Form.useForm();
     const onFinish = (values) => {
-        values.birthDay = values.birthDay.$d
+        values.createdAt = values.createdAt.$d
         values.avatar = imgState;
         setImgState("")
-        signInUser(values)
+        signInUser(values, dispatch)
         cancel()
         form.resetFields();
     };
     const handleChange = (e) => {
         setImgState(e.target.value)
+    }
+    const onCancel1 = () => {
+        cancel()
+        setImgState("")
+        form.resetFields();
     }
     return (
         <Form
@@ -72,7 +79,6 @@ export default function AddEditCompoment(props) {
                 rules={[
                 ]}
             >
-
                 <Input onChange={(e) => {
                     handleChange(e)
                 }} />
@@ -145,17 +151,22 @@ export default function AddEditCompoment(props) {
             </Form.Item>
             <Form.Item
                 label="DatePicker"
-                name="birthDay"
+                name="createdAt"
                 rules={[
                     () => ({
                         validator(_, value) {
-                            console.log(value.$d)
+                            console.log(value)
                             console.log(date)
-                            if (value.$d < date) {
-                                return Promise.resolve();
+                            if (value === undefined || value === "" || value === null) {
+                                return Promise.reject(new Error('Please input your birthDay!'));
                             } else {
-                                return Promise.reject(new Error('Khong phai la ngay cua tuong lai'));
+                                if (value.$d < date) {
+                                    return Promise.resolve();
+                                } else {
+                                    return Promise.reject(new Error('Khong phai la ngay cua tuong lai'));
+                                }
                             }
+
 
                         },
                     }),
@@ -169,28 +180,24 @@ export default function AddEditCompoment(props) {
                 name="password"
                 label="Password"
                 rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
+
                     () => ({
                         validator(_, value) {
-                            const checkPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@]).{6,30}$/;
 
-
-                            if (checkPassword.test(value)) {
-                                return Promise.resolve();
-                            } else {
-                                return Promise.reject(new Error('Mật khẩu không đúng định dạng'));
+                            if (value === undefined || value === "" || value === null) {
+                                return Promise.reject(new Error('Please input your password!'));
+                            }
+                            else {
+                                const checkPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@]).{6,30}$/;
+                                if (checkPassword.test(value)) {
+                                    return Promise.resolve();
+                                } else if (!checkPassword.test(value)) {
+                                    return Promise.reject(new Error('Mật khẩu không đúng định dạng'));
+                                }
                             }
 
                         },
                     }),
-
-
-
-
-
                 ]}
                 validateTrigger='onSubmit'
                 hasFeedback
@@ -227,7 +234,7 @@ export default function AddEditCompoment(props) {
                     Add user
                 </Button>
                 <Button type="" onClick={() => {
-                    cancel()
+                    onCancel1()
                 }}>
                     Cancel
                 </Button>

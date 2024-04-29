@@ -8,12 +8,8 @@ import ModalCompoment from '../ModalCompoment/ModalCompoment';
 import { deleteUser } from '../../Redux/Reducers/UserReducer';
 import EditModalCompoment from '../ModalCompoment/EditModalCompoment';
 import moment from 'moment';
-const confirm = (id) => {
-    deleteUser(id)
-};
-const cancel = (e) => {
-    message.error('Bạn chọn không xóa');
-};
+import { useDispatch } from 'react-redux';
+
 
 
 
@@ -22,7 +18,13 @@ export default function StudentListCompoment() {
     const context = useOutletContext();
     let data = context[1];
     const [open, setOpen] = useState(false);
-
+    const dispatch = useDispatch()
+    const confirm = (id) => {
+        deleteUser(id, dispatch)
+    };
+    const cancel = (e) => {
+        message.error('Bạn chọn không xóa');
+    };
     if (data.length > 0) {
         data = data.map(student => ({
             ...student,

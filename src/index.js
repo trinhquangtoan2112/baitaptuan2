@@ -15,7 +15,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
         <BrowserRouter>
-
             <Routes>
                 <Route path="signin" element={<SignInCompoment></SignInCompoment>}></Route>
                 <Route path="" element={<HomeLayout></HomeLayout>}>

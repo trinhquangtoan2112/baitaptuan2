@@ -3,6 +3,7 @@ import formStyle from "./FormCompoment.module.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllUserApi, getUserDetail } from '../../Redux/Reducers/UserReducer';
 import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 export default function FormCompoment() {
     const numberSelector = useSelector(state => state.UserReducer.allUser);
     const navigator = useNavigate();
@@ -49,7 +50,7 @@ export default function FormCompoment() {
         }
     }
 
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault();
 
         setError({
@@ -77,12 +78,12 @@ export default function FormCompoment() {
 
 
         if (!flagCheck) {
-            window.alert("Lỗi")
+            message.success("Không thành công");
         } else {
 
             const loginInformation = numberSelector?.find(item => item.email === input.email && item.password === input.password);
             if (loginInformation) {
-                getUserDetail(dispatch, loginInformation);
+                await getUserDetail(dispatch, loginInformation);
                 localStorage.setItem("userDetail", JSON.stringify(loginInformation));
                 navigator("/")
             } else {

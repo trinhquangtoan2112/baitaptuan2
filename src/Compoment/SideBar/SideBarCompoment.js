@@ -10,17 +10,21 @@ export default function SideBarCompoment(props) {
         userDetail = JSON.parse(userDetail)
     }
     const [userInformation, setUserInformation] = useState();
+    const getDataApi = async () => {
+
+        const result = await axios({
+            url: `${DOMAIN}/${userDetail.id}`,
+            method: 'GET',
+
+        });
+        setUserInformation(result.data);
+    }
     useEffect(() => {
-        const getDataApi = async () => {
-
-            const result = await axios({
-                url: `${DOMAIN}/${userDetail.id}`,
-                method: 'GET',
-
-            });
-            setUserInformation(result.data);
+        if (userDetail != null) {
+            getDataApi()
         }
-        getDataApi()
+
+
     }, [])
     const location = useLocation();
     const logOut = () => {
