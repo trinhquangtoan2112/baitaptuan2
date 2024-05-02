@@ -42,29 +42,28 @@ export default function SearchCompoment() {
     const searching = async () => {
         if (!state) {
 
-            return;
+            setData1(data);
         }
-
         let lowercaseQuery = state.toLowerCase().trim();
+        const dataFilter = await data.filter(item => item.email.toLowerCase().includes(lowercaseQuery) || parseInt(item.phone) === lowercaseQuery || item.name.toLowerCase().includes(lowercaseQuery));
+        setData1(dataFilter)
+        // if (checkEmail.test(state)) {
 
-        if (checkEmail.test(state)) {
 
-            const dataFilter = await data.filter(item => item.email.toLowerCase().includes(lowercaseQuery));
-            setData1(dataFilter)
-            setStatus("email");
-        } else if (checkPhone.test(state)) {
-            lowercaseQuery = parseInt(lowercaseQuery);
-            const dataFilter = await data.filter(item => parseInt(item.phone) === lowercaseQuery);
-            setData1(dataFilter)
-            console.log(dataFilter)
-            setStatus("phone")
-        } else {
-            const dataFilter = await data.filter(item => item.name.toLowerCase().includes(lowercaseQuery));
-            setData1(dataFilter)
+        //     setStatus("email");
+        // } else if (checkPhone.test(state)) {
+        //     lowercaseQuery = parseInt(lowercaseQuery);
+        //     const dataFilter = await data.filter(item => parseInt(item.phone) === lowercaseQuery);
+        //     setData1(dataFilter)
+        //     console.log(dataFilter)
+        //     setStatus("phone")
+        // } else {
+        //     const dataFilter = await data.filter(item => item.name.toLowerCase().includes(lowercaseQuery));
+        //     setData1(dataFilter)
 
-            setStatus("name")
+        //     setStatus("name")
 
-        }
+        // }
 
     }
     const date = new Date();

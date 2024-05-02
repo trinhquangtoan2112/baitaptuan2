@@ -52,7 +52,7 @@ export const getUserDetail = async (dispatch, data) => {
 
 
 export const signInUser = async (data, dispatch) => {
-    console.log(data, "data")
+
     try {
         const result = await axios({
             url: DOMAIN,

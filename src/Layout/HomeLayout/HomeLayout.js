@@ -9,13 +9,11 @@ import { getAllUserApi } from '../../Redux/Reducers/UserReducer'
 export default function HomeLayout() {
     const userInformation = localStorage.getItem("userDetail");
     const allUser = useSelector(state => state.UserReducer.allUser);
-
-    console.log(allUser);
     const allUserLength = allUser.length;
     const nav = useNavigate();
     const dispatch = useDispatch()
     useEffect(() => {
-        if (userInformation == null) {
+        if (userInformation == null || userInformation === "") {
             nav("/signin")
         }
         getAllUserApi(dispatch)

@@ -146,7 +146,7 @@ export default function EditCompoment(props) {
             }}
             scrollToFirstError
         >
-            <img src={data.avatar} alt='anh nen'></img>
+            <img src={data.avatar.length > 1 ? data.avatar : "https://i.pinimg.com/1200x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"} alt='anh nen'></img>
             <Form.Item
                 name="avatar"
                 label="Avatar"

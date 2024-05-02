@@ -5,8 +5,9 @@ import axios from 'axios';
 import { DOMAIN } from '../../utils/config';
 export default function SideBarCompoment(props) {
     let { userDetail } = props;
+    console.log(userDetail, "4w")
     const nav = useNavigate();
-    if (userDetail != null) {
+    if (userDetail != null && userDetail !== undefined && userDetail !== "") {
         userDetail = JSON.parse(userDetail)
     }
     const [userInformation, setUserInformation] = useState();

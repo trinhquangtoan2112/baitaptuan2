@@ -72,7 +72,7 @@ export default function AddEditCompoment(props) {
             }}
             scrollToFirstError
         >
-            <img src={imgState ? imgState : ""} alt='anhnen'></img>
+            <img src={imgState ? imgState : "https://i.pinimg.com/1200x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"} alt='anhnen'></img>
             <Form.Item
                 name="avatar"
                 label="Avatar"
@@ -180,7 +180,10 @@ export default function AddEditCompoment(props) {
                 name="password"
                 label="Password"
                 rules={[
-
+                    {
+                        required: true,
+                        message: '',
+                    },
                     () => ({
                         validator(_, value) {
 
